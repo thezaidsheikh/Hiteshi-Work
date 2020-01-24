@@ -47,73 +47,37 @@ exports.allUser = function(req,res){
     catch(e){
         res.send(e)
     }
-   
-
-    
 }
 
-exports.getByCity = function(req,res){
+
+exports.toFilter = function(req,res){
     debugger
-    try{
-        var city = req.query.city;
-        const find = User.find({"city":city},(err,doc)=>{
+   try{
+       if(req.query.email!='' || req.query.name!='' || req.query.city!=''){
+           var email = req.query.email;
+           var name = req.query.name;
+           var city = req.query.city;
+           
+           const find = User.find({ name: { $regex: name ,  $options : 'i' } , email: { $regex: email ,  $options : 'i' } , city: { $regex: city ,  $options : 'i' } },(err,doc)=>{
+               if(!err){
+                   res.status(200).json({status:200,data:doc});
+               }
+               else{
+                   res.status(400).json('error in get:'+err);
+               }
+           });
+       }
+       else{
+        const find = User.find((err,doc)=>{
             if(!err){
                 res.status(200).json({status:200,data:doc});
             }
             else{
                 res.status(400).json('error in get:'+err);
             }
-        });
-    }
-    catch(e){
-
-    }
-  
-   
+        }); 
+       }
+   }
+   catch(e){
+   }
 }
-
-exports.getByName = function(req,res){
-    debugger
-    try{
-        if(req.query.name!=null){
-            var name = req.query.name
-            
-            const find = User.find({ name: { $regex: name , $options : 'i' } },(err,doc)=>{
-                if(!err){
-                    res.status(200).json({status:200,data:doc});
-                }
-                else{
-                    res.status(400).json('error in get:'+err);
-                }
-            });
-        }
-        else{
-            return res.send('not be null');
-        }
-    }
-    catch(e){
-    }
- }
-
- exports.getByEmail = function(req,res){
-     debugger
-    try{
-        if(req.query.email!=null){
-            var email = req.query.email
-            
-            const find = User.find({ email: { $regex: email ,  $options : 'i' } },(err,doc)=>{
-                if(!err){
-                    res.status(200).json({status:200,data:doc});
-                }
-                else{
-                    res.status(400).json('error in get:'+err);
-                }
-            });
-        }
-        else{
-            return res.send('not be null');
-        }
-    }
-    catch(e){
-    }
- }
