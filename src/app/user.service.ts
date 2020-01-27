@@ -36,5 +36,10 @@ export class UserService {
     debugger
     return this.http.get(`${this.baseUrl}getByemail?email=${emailValue}`);
   }
+
+  toFilter(valueForFilter){
+    debugger
+    return this.http.get(`${this.baseUrl}toFilter?city=${valueForFilter.cityFilter}&name=${valueForFilter.nameFilter}&email=${valueForFilter.emailFilter}`);
+  }
   
 }

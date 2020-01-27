@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import {HttpClientModule} from '@angular/common/http';
 import { UserListComponent } from './user-list/user-list.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { UserListComponent } from './user-list/user-list.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
     HttpClientModule
   ],
   providers: [],

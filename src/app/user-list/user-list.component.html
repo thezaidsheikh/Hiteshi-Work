@@ -1,50 +1,58 @@
 <div class="container">
-<div class="row">
-<div class="input-group mb-3" >
-    <input type="text" class="form-control" placeholder="Search by Name" #nameValue [(ngModel)]="nameClear">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button"  (click)=nameFilter(nameValue.value) >Search</button>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="input-group mb-3" >
-      <input type="text" class="form-control" placeholder="Search by Email" #emailValue [(ngModel)]="emailClear">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button" (click)=emailFilter(emailValue.value) >Search</button>
-      </div>
-    </div>
-  </div>
   <div class="row">
-    <label for="sel1">Select City (select one):</label>
-      <select class="form-control" [(ngModel)]="ddd" (change)="cityFilter($event.target.value)">
-        <option  selected  disabled value="">Select city</option>
-        <option *ngFor="let user of cities">{{user.city}}</option>
-      </select>
-    </div>
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">City</th>
-        <th scope="col">Phone Number</th>
-        <th scope="col">Date of Birth</th>
-        <th scope="col">Email</th>
-      </tr>
-    </thead>
-    <tbody *ngFor='let user of data ; index as i'>
-      <tr >
-        <th scope="row">{{i+1}}</th>
-        <td>{{user.name}}</td>
-        <td>{{user.city}}</td>
-        <td>{{user.phone}}</td>
-        <td>{{user.dateOfBirth}}</td>
-        <td>{{user.email}}</td>
-      </tr>
-      
-    </tbody>
-  </table>
+    <form [formGroup]='forSearch' (ngSubmit)='Search(forSearch.value)'>
 
-  
-</div>  
+      <div class="row" style="width: 100%;">
+
+        <div class="form-group col-md-4">
+          <label for="name" class="control-label">Name</label>
+          <input id="name" type="text" formControlName="nameFilter" class="form-control"
+            placeholder="Enter Name to search">
+        </div>
+
+        <div class="form-group col-md-4">
+          <label>Email</label>
+          <input type="text" formControlName='emailFilter' class="form-control" placeholder="Enter Email to search">
+
+        </div>
+
+
+        <div class="form-group col-md-4">
+          <label for="sel1">Select City (select one):</label>
+          <select class="form-control" [(ngModel)]="ddd" formControlName='cityFilter'>
+            <option selected value="">Select city</option>
+            <option *ngFor="let user of cities">{{user}}</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Search</button>
+      <br>
+      <br>
+    </form>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">City</th>
+          <th scope="col">Phone Number</th>
+          <th scope="col">Date of Birth</th>
+          <th scope="col">Email</th>
+        </tr>
+      </thead>
+      <tbody *ngFor='let user of data ; index as i'>
+        <tr>
+          <th scope="row">{{i+1}}</th>
+          <td>{{user.name}}</td>
+          <td>{{user.city}}</td>
+          <td>{{user.phone}}</td>
+          <td>{{user.dateOfBirth}}</td>
+          <td>{{user.email}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+
+  </div>
